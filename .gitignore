@@ -1,0 +1,6 @@
+.venv
+.idea
+.vscode
+*.pth
+data/
+__pycache__
