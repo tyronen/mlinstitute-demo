@@ -23,7 +23,7 @@ def setup_database():
             text(
                 """CREATE TABLE IF NOT EXISTS predictions (
                     id SERIAL PRIMARY KEY,
-                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
                     prediction SMALLINT,
                     confidence REAL,
                     true_label SMALLINT
@@ -55,5 +55,6 @@ def get_all_predictions():
            FROM predictions ORDER BY timestamp DESC""",
         ttl="2s",
     )
+    df["timestamp"] = df["timestamp"].dt.tz_convert("Europe/London")
     df.columns = [col.replace("_", " ").title() for col in df.columns]
     return df

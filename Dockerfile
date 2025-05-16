@@ -1,8 +1,11 @@
 FROM pytorch/pytorch:2.7.0-cuda12.8-cudnn9-runtime
 
 WORKDIR /app
-COPY . .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY db.py .
+COPY init_db.py .
+COPY mnist_model.pth .
+COPY models.py .
+COPY requirements.txt .
+COPY webserver.py .
 
-EXPOSE 8501
-CMD ["streamlit", "run", "webserver.py", "--server.port=8501", "--server.address=0.0.0.0"]
+RUN pip install --no-cache-dir -r requirements.txt

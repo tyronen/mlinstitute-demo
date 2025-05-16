@@ -7,17 +7,20 @@ services:
   web:
     build: .
     ports:
-      - "8501:8501"
+      - "${PORT}:${PORT}"
     depends_on:
       postgres:
         condition: service_healthy
     environment:
       <<: *common-variables
       DB_HOST: postgres
+      FILE_WATCHER: "${FILE_WATCHER:-none}"
+      PORT: "${PORT:-8501}"
     volumes:
       - .:/app
     command:
-      sh -c "python init_db.py && streamlit run webserver.py --server.port=8501 --server.address=0.0.0.0"
+      sh -c "python init_db.py && streamlit run webserver.py --server.port=$${PORT} --server.address=0.0.0.0 --server.fileWatcherType=$${FILE_WATCHER}
+      "
 
 
   postgres:
