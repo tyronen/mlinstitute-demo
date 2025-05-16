@@ -16,8 +16,6 @@ services:
       DB_HOST: postgres
       FILE_WATCHER: "${FILE_WATCHER:-none}"
       PORT: "${PORT:-8501}"
-    volumes:
-      - .:/app
     command:
       sh -c "python init_db.py && streamlit run webserver.py --server.port=$${PORT} --server.address=0.0.0.0 --server.fileWatcherType=$${FILE_WATCHER}
       "
