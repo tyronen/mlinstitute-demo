@@ -4,7 +4,8 @@ Built per the instructions at https://programme.mlx.institute/interview/project?
 
 ## Access the running instance
 
-Currently live at http://18.175.138.13. Deployed to AWS Lightsail.
+Currently live at http://pytorch.tyronenicholas.com. If DNS has not yet propagated, try http://18.175.38.13. Deployed
+to AWS Lightsail.
 
 ## Running locally
 
