@@ -47,11 +47,15 @@ def main():
     raw_data = datasets.MNIST(
         root="data", train=True, download=True, transform=ToTensor()
     )
-    stats_dataloader = DataLoader(raw_data, batch_size=60000)
+    stats_dataloader = DataLoader(
+        raw_data, batch_size=len(raw_data.data), shuffle=False
+    )
     images, _ = next(iter(stats_dataloader))
+    mean = images.mean()
+    std = images.std()
 
     transform = transforms.Compose(
-        [transforms.ToTensor(), transforms.Normalize(images.mean(), images.std())]
+        [transforms.ToTensor(), transforms.Normalize(mean, std)]
     )
 
     training_data = datasets.MNIST(
@@ -82,7 +86,12 @@ def main():
         train(train_dataloader, model, loss_fn, optimizer, device)
         test(test_dataloader, model, loss_fn, device)
 
-    torch.save(model.state_dict(), MODEL_PATH)
+    model_dict = {
+        "model_state_dict": model.state_dict(),
+        "mean": mean,
+        "std": std,
+    }
+    torch.save(model_dict, MODEL_PATH)
     print(f"Saved PyTorch Model State to {MODEL_PATH}")
 
 
