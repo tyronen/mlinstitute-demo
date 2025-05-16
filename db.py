@@ -55,6 +55,7 @@ def get_all_predictions():
            FROM predictions ORDER BY timestamp DESC""",
         ttl="2s",
     )
-    df["timestamp"] = df["timestamp"].dt.tz_convert("Europe/London")
-    df.columns = [col.replace("_", " ").title() for col in df.columns]
+    if not df.empty:
+        df["timestamp"] = df["timestamp"].dt.tz_convert("Europe/London")
+        df.columns = [col.replace("_", " ").title() for col in df.columns]
     return df

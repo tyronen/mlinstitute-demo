@@ -4,14 +4,11 @@ import string
 import streamlit as st
 import torch
 from PIL import Image, ImageOps
-from dotenv import load_dotenv
 from streamlit_drawable_canvas import st_canvas
 from torchvision import transforms
 
 from db import log_prediction, get_all_predictions
 from models import MnistCNN, MODEL_PATH
-
-load_dotenv()
 
 
 @st.cache_resource
@@ -80,7 +77,9 @@ handwritten digits using the Pytorch library.
 Draw a digit (0-9) in the black box and press Predict. The model will then 
 attempt to guess what digit you have entered, and how confident it is in that
 guess as a percentage. You can then press Submit to add each guess to the 
-prediction history below."""
+prediction history below.
+
+Author: Tyrone Nicholas"""
 
 
 def main():
